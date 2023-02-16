@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Data.DAL;
+using WebApi.DTOs.Category;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -24,7 +25,11 @@ namespace WebApi.Controllers
         public IActionResult Get(int? id)
         {
             if (id == null) return NotFound();
-            var category = _context.Categories.FirstOrDefault(x=>x.Id== id);
+            var category = _context.Categories.Where(x=>x.Id == id).Select(x=>new CategoryGetDto
+            {
+                Name = x.Name,
+                FullPath = "https://localhost:7038/wwwroot/img/2.jpg"
+            }).FirstOrDefault();
             if (category == null) return NotFound();
             
             return Ok(category);
@@ -33,7 +38,10 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var categories = _context.Categories.Where(x=>!x.IsDeleted).ToList();
+            var categories = _context.Categories.Select(x=>new CategoryGetDto
+            {
+                Name = x.Name
+            }).ToList();
             if (categories.Count == 0) return NotFound();
             
             return Ok(categories);
