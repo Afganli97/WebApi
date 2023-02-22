@@ -1,6 +1,6 @@
 namespace WebApi.DTOs.Category;
 
-public class CategoryGetDto
+public class CategoryReturnDto
 {
     public string Name { get; set; }
     public string FullPath { get; set; }

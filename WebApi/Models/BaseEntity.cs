@@ -7,8 +7,9 @@ public class BaseEntity
         CreatedTime = DateTime.Now;
         LastModifiedTime = DateTime.Now;
     }
+    public int Id { get; set; }
     public bool IsDeleted { get; set; }
     public DateTime CreatedTime { get; set; }
     public DateTime LastModifiedTime { get; set; }
-    public DateTime DeletedTime { get; set; }
+    public DateTime? DeletedTime { get; set; }
 }
